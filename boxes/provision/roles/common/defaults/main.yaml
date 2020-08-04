@@ -1,0 +1,8 @@
+---
+# ROLE VARS DEFAULT
+
+# vagrant
+# vagrant_synced_folder_default_type: ""
+
+# ssh
+# ssh_allowed_user: vagrant

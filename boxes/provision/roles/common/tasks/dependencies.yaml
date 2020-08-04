@@ -1,0 +1,11 @@
+---
+- name: update apk repos; install utilities
+  apk:
+    update_cache: latest
+    name:
+      - vim
+      - ncurses
+      - htop
+      - git
+      - coreutils
+      - lsof

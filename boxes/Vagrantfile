@@ -1,0 +1,28 @@
+Vagrant.require_version ">= 2.2.9"
+
+VAGRANT_SYNTAX_VER = "2"
+
+Vagrant.configure(VAGRANT_SYNTAX_VER) do |config|
+  # common
+  config.vm.synced_folder ".", "/vagrant", owner: "vagrant"
+  config.vm.box = "generic/alpine311"
+
+  # rails application stack defs
+  # in future this might be split up hence the boilerplate here and below
+  config.vm.define "rails" do |machine|
+    machine.vm.network "private_network", ip: "172.21.0.1"
+  end
+
+  config.vm.define "op" do |machine|
+    machine.vm.network "private_network", ip: "172.21.0.0"
+
+    config.vm.provision :ansible_local do |ansible|
+      ansible.playbook = "provision/core.yaml"
+      ansible.inventory_path = "inventory"
+      ansible.limit = "all"
+      ansible.verbose = true
+      ansible.install = true
+      ansible.install_mode = :default
+    end
+  end
+end

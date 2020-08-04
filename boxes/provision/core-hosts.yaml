@@ -1,0 +1,4 @@
+---
+- hosts: core_hosts
+  roles:
+    - common
